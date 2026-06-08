@@ -1,0 +1,71 @@
+<!-- Sidebar component (static HTML version) -->
+<!-- Use JS to mark active link and show basic user info -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-brand">
+            <div class="brand-icon"><i class="bi bi-bank2"></i></div>
+            <div class="brand-text">
+                <h5>SiKeMas</h5>
+                <small>Keuangan Masjid</small>
+            </div>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <div class="nav-section-label">Menu Utama</div>
+
+        <a href="dashboard.html" class="nav-link-item" data-key="dashboard">
+            <i class="bi bi-grid-1x2"></i> Dashboard
+        </a>
+
+        <div class="nav-section-label" style="margin-top:8px">Keuangan</div>
+
+        <a href="pemasukan.html" class="nav-link-item" data-key="pemasukan">
+            <i class="bi bi-arrow-down-circle"></i> Pemasukan
+        </a>
+
+        <a href="pengeluaran.html" class="nav-link-item" data-key="pengeluaran">
+            <i class="bi bi-arrow-up-circle"></i> Pengeluaran
+        </a>
+
+        <div class="nav-section-label" style="margin-top:8px">Laporan</div>
+
+        <a href="laporan.html" class="nav-link-item" data-key="laporan">
+            <i class="bi bi-file-earmark-bar-graph"></i> Laporan Keuangan
+        </a>
+
+    </nav>
+
+    <div class="sidebar-footer">
+        <div class="user-info-sidebar">
+            <div class="user-avatar" id="userAvatar">A</div>
+            <div>
+                <div class="user-name" id="userName">Admin</div>
+                <div class="user-role" id="userRole">Admin</div>
+            </div>
+        </div>
+        <a href="logout.php" style="display:flex;align-items:center;gap:8px;padding:9px 12px;margin-top:8px;border-radius:8px;color:rgba(255,255,255,0.5);font-size:13px;font-weight:500;transition:all .2s"
+           onmouseover="this.style.background='rgba(239,68,68,0.15)';this.style.color='#fca5a5'"
+           onmouseout="this.style.background='';this.style.color='rgba(255,255,255,0.5)'">
+            <i class="bi bi-box-arrow-left"></i> Keluar
+        </a>
+    </div>
+
+    <script>
+    // mark active link based on current filename
+    (function(){
+        const path = location.pathname.split('/').pop();
+        const key = path.replace('.html','') || 'dashboard';
+        document.querySelectorAll('.nav-link-item').forEach(a=>{
+            if (a.dataset.key === key) a.classList.add('active');
+        });
+        // user info (optional): read from localStorage if set
+        const name = localStorage.getItem('sikemas_user_name');
+        const role = localStorage.getItem('sikemas_user_role');
+        if (name) document.getElementById('userName').textContent = name;
+        if (role) document.getElementById('userRole').textContent = role;
+        if (name) document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
+    })();
+    </script>
+</aside>

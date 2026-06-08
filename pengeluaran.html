@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengeluaran — SiKeMas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="sidebarContainer"></div>
+
+<div class="main-wrapper">
+    <header class="topbar">
+        <div class="topbar-left">
+            <button class="sidebar-toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+            <div>
+                <div class="page-title">Manajemen Pengeluaran</div>
+                <div class="page-bread">Dashboard / Pengeluaran</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-content">
+
+        <div style="display:grid;grid-template-columns:1fr 1.8fr;gap:24px;align-items:start" class="pemas-grid">
+
+            <div class="content-card">
+                <div class="card-header-custom">
+                    <div class="card-title-custom">
+                        <div class="card-title-icon" style="background:#fff2f2;color:#ef4444">
+                            <i class="bi bi-dash-circle"></i>
+                        </div>
+                        Tambah Pengeluaran
+                    </div>
+                </div>
+                <div class="card-body-custom">
+                    <form action="process/tambah_pengeluaran.php" method="POST">
+
+                        <div class="form-group-custom">
+                            <label class="form-label-custom">
+                                <i class="bi bi-calendar3" style="color:#1a6b3c;margin-right:4px"></i>
+                                Tanggal
+                            </label>
+                            <input type="date" name="tanggal" id="tanggal" class="form-control-custom" required>
+                        </div>
+
+                        <div class="form-group-custom">
+                            <label class="form-label-custom">
+                                <i class="bi bi-cash-coin" style="color:#1a6b3c;margin-right:4px"></i>
+                                Jumlah (Rp)
+                            </label>
+                            <div class="input-group-custom">
+                                <span class="input-prefix">Rp</span>
+                                <input type="number" name="jumlah" id="jumlah" class="form-control-custom" placeholder="500000" min="1" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group-custom">
+                            <label class="form-label-custom">
+                                <i class="bi bi-card-text" style="color:#1a6b3c;margin-right:4px"></i>
+                                Keterangan
+                            </label>
+                            <input type="text" name="keterangan" class="form-control-custom" placeholder="Contoh: Listrik, Honor, ATK..." required maxlength="255">
+                        </div>
+
+                        <div style="display:flex;gap:10px;margin-top:24px">
+                            <button type="submit" class="btn-primary-custom">
+                                <i class="bi bi-plus-lg"></i> Simpan Data
+                            </button>
+                            <button type="reset" class="btn-secondary-custom">
+                                <i class="bi bi-arrow-counterclockwise"></i> Reset
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header-custom">
+                    <div class="card-title-custom">
+                        <div class="card-title-icon" style="background:#fff2f2;color:#ef4444">
+                            <i class="bi bi-table"></i>
+                        </div>
+                        Data Pengeluaran
+                    </div>
+                    <div style="display:flex;gap:12px;align-items:center">
+                        <div style="text-align:right">
+                            <div style="font-size:11.5px;color:#6b7a8d">0 transaksi</div>
+                            <div style="font-size:14px;font-weight:800;color:#ef4444">Rp 0</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="overflow-x:auto">
+                    <table class="table-modern">
+                        <thead>
+                            <tr>
+                                <th style="width:40px">#</th>
+                                <th>Tanggal</th>
+                                <th>Keterangan</th>
+                                <th style="text-align:right">Jumlah</th>
+                                <th style="text-align:center;width:80px">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td colspan="5">
+                                <div class="empty-state">
+                                    <i class="bi bi-inbox"></i>
+                                    <p>Belum ada data pengeluaran.<br>Gunakan form di samping untuk menambah.</p>
+                                </div>
+                            </td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script>
+fetch('_sidebar.html').then(r=>r.text()).then(html=>{
+    document.getElementById('sidebarContainer').innerHTML = html;
+}).finally(()=>{
+    const s=document.createElement('script'); s.src='assets/js/script.js'; document.body.appendChild(s);
+});
+</script>
+<style>
+@media(max-width:992px){
+    .pemas-grid { grid-template-columns: 1fr !important; }
+}
+</style>
+
+</body>
+</html>

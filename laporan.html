@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Keuangan — SiKeMas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="sidebarContainer"></div>
+
+<div class="main-wrapper">
+    <header class="topbar">
+        <div class="topbar-left">
+            <button class="sidebar-toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+            <div>
+                <div class="page-title">Laporan Keuangan</div>
+                <div class="page-bread">Dashboard / Laporan</div>
+            </div>
+        </div>
+        <div class="topbar-right">
+            <button class="btn-topbar btn-success-solid" onclick="window.print()">
+                <i class="bi bi-printer"></i> Cetak
+            </button>
+        </div>
+    </header>
+
+    <main class="page-content">
+
+        <div class="summary-box">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px">
+                <div>
+                    <h4><i class="bi bi-bank2" style="margin-right:6px"></i>Laporan Keuangan Masjid</h4>
+                    <div class="value">Rp 0</div>
+                    <div style="font-size:13px;opacity:.65;margin-top:6px">Saldo Kas Keseluruhan</div>
+                </div>
+                <div style="opacity:.7;font-size:13px;text-align:right">
+                    Dicetak: <span id="printedAt"></span><br>
+                    Oleh: <span id="printedBy">Pengguna</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-row">
+            <div class="summary-item">
+                <div class="label"><i class="bi bi-arrow-down-circle"></i> Total Pemasukan</div>
+                <div class="val green">Rp 0</div>
+            </div>
+            <div class="summary-item">
+                <div class="label"><i class="bi bi-arrow-up-circle"></i> Total Pengeluaran</div>
+                <div class="val red">Rp 0</div>
+            </div>
+            <div class="summary-item">
+                <div class="label"><i class="bi bi-wallet2"></i> Saldo Akhir</div>
+                <div class="val green">Rp 0</div>
+            </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1.5fr;gap:20px;margin-bottom:24px" class="lap-grid">
+            <div class="content-card">
+                <div class="card-header-custom">
+                    <div class="card-title-custom">
+                        <div class="card-title-icon"><i class="bi bi-funnel"></i></div>
+                        Filter Laporan
+                    </div>
+                </div>
+                <div class="card-body-custom">
+                    <form method="GET" action="laporan.php">
+                        <div class="form-group-custom">
+                            <label class="form-label-custom">Bulan</label>
+                            <select name="bulan" class="form-control-custom">
+                                <option value="">-- Semua Bulan --</option>
+                                <option value="1">Januari</option>
+                                <option value="2">Februari</option>
+                                <option value="3">Maret</option>
+                                <option value="4">April</option>
+                                <option value="5">Mei</option>
+                                <option value="6">Juni</option>
+                                <option value="7">Juli</option>
+                                <option value="8">Agustus</option>
+                                <option value="9">September</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">Desember</option>
+                            </select>
+                        </div>
+                        <div class="form-group-custom">
+                            <label class="form-label-custom">Tahun</label>
+                            <select name="tahun" class="form-control-custom">
+                                <option value="">-- Semua Tahun --</option>
+                                <option>2024</option>
+                                <option>2025</option>
+                            </select>
+                        </div>
+                        <div style="display:flex;gap:10px;margin-top:20px">
+                            <button type="submit" class="btn-primary-custom"><i class="bi bi-search"></i> Filter</button>
+                            <a href="laporan.php" class="btn-secondary-custom"><i class="bi bi-x-circle"></i> Reset</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header-custom">
+                    <div class="card-title-custom">
+                        <div class="card-title-icon"><i class="bi bi-pie-chart"></i></div>
+                        Proporsi Keuangan
+                    </div>
+                </div>
+                <div class="card-body-custom">
+                    <div class="chart-container" style="height:230px">
+                        <canvas id="chartDonut"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-header-custom">
+                <div class="card-title-custom">
+                    <div class="card-title-icon"><i class="bi bi-list-ul"></i></div>
+                    Rincian Transaksi
+                    <span style="background:#e8f5ee;color:#1a6b3c;padding:2px 10px;border-radius:20px;font-size:11.5px;font-weight:700">0 data</span>
+                </div>
+            </div>
+            <div style="overflow-x:auto">
+                <table class="table-modern">
+                    <thead>
+                        <tr>
+                            <th style="width:40px">#</th>
+                            <th>Tanggal</th>
+                            <th>Keterangan</th>
+                            <th style="text-align:center">Jenis</th>
+                            <th style="text-align:right">Pemasukan</th>
+                            <th style="text-align:right">Pengeluaran</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="6">
+                            <div class="empty-state">
+                                <i class="bi bi-inbox"></i>
+                                <p>Tidak ada data untuk periode yang dipilih.</p>
+                            </div>
+                        </td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script>
+fetch('_sidebar.html').then(r=>r.text()).then(html=>{
+    document.getElementById('sidebarContainer').innerHTML = html;
+}).finally(()=>{
+    document.getElementById('printedAt').textContent = new Date().toLocaleString('id-ID');
+    const s=document.createElement('script'); s.src='assets/js/script.js'; document.body.appendChild(s);
+    const c=document.createElement('script'); c.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js'; document.body.appendChild(c);
+    c.onload = function(){ initDonutChart(0,0); };
+});
+</script>
+
+<style>
+@media(max-width:992px){
+    .lap-grid { grid-template-columns: 1fr !important; }
+}
+</style>
+
+</body>
+</html>
